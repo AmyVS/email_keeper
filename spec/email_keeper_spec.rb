@@ -1,5 +1,6 @@
 require 'rspec'
 require 'contact'
+require 'email'
 
 describe Contact do
   it 'initializes with a contact name' do
@@ -29,5 +30,13 @@ describe Contact do
       test_contact.save
       expect(Contact.all). to eq [test_contact]
     end
+  end
+end
+
+
+describe Email do
+  it 'initializes with an email address' do
+    test_email = Email.new('bluebox@tardis.com')
+    expect(test_email).to be_an_instance_of Email
   end
 end
