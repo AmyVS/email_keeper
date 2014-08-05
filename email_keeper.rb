@@ -43,6 +43,7 @@ def list_contacts
   puts "Here's a list of all of your contacts:"
   Contact.all.each_with_index { |contact, index| puts "#{index+1}. #{contact.name}" }
   puts "\n"
+  main_menu
 end
 
 def edit_contact
