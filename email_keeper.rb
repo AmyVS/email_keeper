@@ -80,8 +80,16 @@ def new_email
   @selected_contact.add_email(new_address)
 
   puts "You've successfully added #{new_address.address} to #{@selected_contact.name}'s email list.\n\n"
-  puts "Returning to the main menu. \n\n"
-  main_menu
+  puts "Returning to the edit contact menu. \n\n"
+  edit_contact
+end
+
+def list_emails
+  puts "Here are the email addresses you have for #{@selected_contact.name}:"
+  @selected_contact.email.each_with_index { |email, index| puts "#{index+1}. #{email.address}" }
+  puts "\n\n"
+
+  edit_contact
 end
 
 main_menu
