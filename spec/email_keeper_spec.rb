@@ -8,18 +8,26 @@ describe Contact do
   end
 
   it 'reads the contact name out' do
-    new_contact = Contact.new('The Doctor')
-    expect(new_contact.name).to eq 'The Doctor'
+    test_contact = Contact.new('The Doctor')
+    expect(test_contact.name).to eq 'The Doctor'
   end
 
   it 'starts as an empty array' do
-    new_contact = Contact.new('The Doctor')
-    expect(new_contact.email).to eq []
+    test_contact = Contact.new('The Doctor')
+    expect(test_contact.email).to eq []
   end
 
   describe '.all' do
     it 'is empty at first' do
       expect(Contact.all).to eq []
+    end
+  end
+
+  describe '#save' do
+    it 'adds a contact to an array of saved contacts' do
+      test_contact = Contact.new('The Doctor')
+      test_contact.save
+      expect(Contact.all). to eq [test_contact]
     end
   end
 end

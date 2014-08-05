@@ -11,4 +11,8 @@ class Contact
   def Contact.all
     @@contacts
   end
+
+  def save
+    @@contacts << self
+  end
 end
