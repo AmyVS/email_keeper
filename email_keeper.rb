@@ -30,6 +30,7 @@ end
 #   puts "What is your contact's main email address?"
 #   input_email = gets.chomp
 #   new_email = Email.new(input_email)
+
 # end
 
 main_menu

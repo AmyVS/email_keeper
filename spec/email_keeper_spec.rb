@@ -18,6 +18,7 @@ describe Contact do
     expect(test_contact.email).to eq []
   end
 
+
   describe '.all' do
     it 'is empty at first' do
       expect(Contact.all).to eq []
@@ -30,6 +31,12 @@ describe Contact do
       test_contact.save
       expect(Contact.all). to eq [test_contact]
     end
+  end
+
+  it 'adds a new email address to an existing contact' do
+    test_contact = Contact.new('The Doctor')
+    test_email = Email.new('bluebox@tardis.com')
+    expect(test_contact.add_email(test_email)).to eq [test_email]
   end
 end
 

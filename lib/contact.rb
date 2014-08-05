@@ -15,4 +15,8 @@ class Contact
   def save
     @@contacts << self
   end
+
+  def add_email(address)
+    @email << address
+  end
 end
