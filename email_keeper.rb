@@ -21,4 +21,15 @@ def main_menu
   end
 end
 
+# def add_contact
+#   puts "What is your contact's name?"
+#   input_contact = gets.chomp
+#   new_contact = Contact.new(input_contact)
+#   new_contact.save
+
+#   puts "What is your contact's main email address?"
+#   input_email = gets.chomp
+#   new_email = Email.new(input_email)
+# end
+
 main_menu
