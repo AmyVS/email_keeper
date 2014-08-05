@@ -33,6 +33,13 @@ def add_contact
   new_contact.add_email(new_email)
 
   puts "You've successfully added #{new_email.address} to #{new_contact.name}'s list of emails!"
+  puts "\n\n"
+  main_menu
+end
+
+def list_contacts
+  puts "Here's a list of all of your contacts:"
+  Contact.all.each_with_index { |contact, index| puts "#{index+1}. #{contact.name}" }
   main_menu
 end
 
