@@ -11,4 +11,9 @@ describe Contact do
     new_contact = Contact.new('The Doctor')
     expect(new_contact.name).to eq 'The Doctor'
   end
+
+  it 'starts as an empty array' do
+    new_contact = Contact.new('The Doctor')
+    expect(new_contact.email).to eq []
+  end
 end
