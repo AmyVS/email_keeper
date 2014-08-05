@@ -16,4 +16,10 @@ describe Contact do
     new_contact = Contact.new('The Doctor')
     expect(new_contact.email).to eq []
   end
+
+  describe '.all' do
+    it 'is empty at first' do
+      expect(Contact.all).to eq []
+    end
+  end
 end

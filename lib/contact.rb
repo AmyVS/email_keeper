@@ -5,4 +5,8 @@ class Contact
     @name = name
     @email = []
   end
+
+  def Contact.all
+    []
+  end
 end
