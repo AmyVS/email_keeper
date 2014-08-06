@@ -30,6 +30,7 @@ def add_contact
   input_contact = gets.chomp
   new_contact = Contact.new(input_contact)
   new_contact.save
+  @selected_contact = new_contact
 
   puts "What is your contact's main email address?"
   input_email = gets.chomp
@@ -44,28 +45,33 @@ end
 def list_contacts
   puts "Here's a list of all of your contacts:"
   Contact.all.each_with_index { |contact, index| puts "#{index+1}. #{contact.name}" }
-  puts "\n"
 
-  main_menu
+  puts "If you would like to make edits to an existing contact, please enter the contact's index number."
+  puts "Or, press any other key to return to the main menu."
+
+  user_choice = gets.chomp
+
+  if user_choice.to_i <= Contact.all.length
+    @selected_contact = Contact.all.fetch(user_choice.to_i-1)
+    edit_contact
+  else
+    main_menu
+  end
 end
 
 def edit_contact
-  puts "Please enter your contact's name."
-
-  contact_name = gets.chomp
-  @selected_contact = Contact.all.select { |contact| contact.name == contact_name }.first
-  puts "You've selected #{@selected_contact.name}\n"
-  puts "Press 'a' to add a new email address, 'l to list a specific contact's email addresses,"
-  puts "'r' to remove an email address, or any key to return to the main menu."
+  puts "You've selected #{@selected_contact.name}'s email list.\n"
+  puts "Press 'a' to add a new email address, 'e' to edit a specific contact's email addresses,"
+  puts "'r' to remove the contact, or any key to return to the main menu."
 
   user_choice = gets.chomp
 
   if user_choice == 'a'
     new_email
-  elsif user_choice == 'l'
-    list_emails
+  elsif user_choice == 'e'
+    edit_email
   elsif user_choice == 'r'
-    remove_email
+    remove_contact
   else
     puts "Returning to the main menu..."
     main_menu
@@ -84,10 +90,17 @@ def new_email
   edit_contact
 end
 
-def list_emails
+def edit_email
   puts "Here are the email addresses you have for #{@selected_contact.name}:"
-  @selected_contact.email.each_with_index { |email, index| puts "#{index+1}. #{email.address}" }
+  @selected_contact.emails.each_with_index { |email, index| puts "#{index+1}. #{email.address}" }
   puts "\n\n"
+
+  puts "If you would like to remove an email, please select the email's index number."
+  user_choice = gets.chomp.to_i
+
+  #this is not taking user_choice into account yet.
+  @selected_contact.emails.select { |email| @selected_contact.remove_email(email)
+  puts "\n\n #{email.address} has been successfully removed from contact #{@selected_contact.name}'s list.\n\n" }
 
   edit_contact
 end
