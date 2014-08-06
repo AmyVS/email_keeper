@@ -1,11 +1,11 @@
 class Contact
-  attr_reader :name, :email
+  attr_reader :name, :emails
 
   @@contacts = []
 
   def initialize(name)
     @name = name
-    @email = []
+    @emails = []
   end
 
   def Contact.all
@@ -17,6 +17,10 @@ class Contact
   end
 
   def add_email(address)
-    @email << address
+    @emails << address
+  end
+
+  def remove_email(address)
+    @emails.delete_if { |email| email == address }
   end
 end

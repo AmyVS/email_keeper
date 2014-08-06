@@ -15,7 +15,7 @@ describe Contact do
 
   it 'starts as an empty array' do
     test_contact = Contact.new('The Doctor')
-    expect(test_contact.email).to eq []
+    expect(test_contact.emails).to eq []
   end
 
 
@@ -37,6 +37,13 @@ describe Contact do
     test_contact = Contact.new('The Doctor')
     test_email = Email.new('bluebox@tardis.com')
     expect(test_contact.add_email(test_email)).to eq [test_email]
+  end
+
+  it 'removes a specific email address from a contact' do
+    test_contact = Contact.new('The Doctor')
+    test_email = Email.new('bluebox@tardis.com')
+    test_contact.add_email(test_email)
+    expect(test_contact.remove_email(test_email)).to eq []
   end
 end
 
