@@ -4,8 +4,12 @@ require './lib/email'
 @selected_contact = nil
 @selected_email = nil
 
+def welcome
+   puts "\n\nWelcome to your Email Keeper. Please select from the following:"
+   main_menu
+end
+
 def main_menu
-  puts "Welcome to your Email Keeper. Please select from the following:"
   puts "Press 'a' to add a new contact, 'l' to list all of your contacts,"
   puts "'e' to edit a contact, or 'x' to exit."
 
@@ -18,36 +22,35 @@ def main_menu
   elsif user_choice == 'e'
     edit_contact
   elsif user_choice == 'x'
-    puts "Have a good one!\n\n\n"
+    puts "\nHave a good one!\n\n\n"
     exit
   else
-    puts "My apologies, I don't recognize your selection. Please try again."
+    puts "\nMy apologies, I don't recognize your selection. Please try again.\n"
     main_menu
   end
 end
 
 def add_contact
-  puts "What is your contact's name?"
+  puts "\nWhat is your contact's name?\n"
   input_contact = gets.chomp
   new_contact = Contact.new(input_contact)
   new_contact.save
   @selected_contact = new_contact
 
-  puts "What is your contact's main email address?"
+  puts "\nWhat is your contact's main email address?\n"
   input_email = gets.chomp
   new_email = Email.new(input_email)
   new_contact.add_email(new_email)
 
-  puts "You've successfully added #{new_email.address} to #{new_contact.name}'s list of emails!"
-  puts "\n\n"
+  puts "\nYou've successfully added #{new_email.address} to #{new_contact.name}'s list of emails!\n\n"
   main_menu
 end
 
 def list_contacts
-  puts "Here's a list of all of your contacts:"
+  puts "\nHere's a list of all of your contacts:"
   Contact.all.each_with_index { |contact, index| puts "#{index+1}. #{contact.name}" }
 
-  puts "If you would like to make edits to an existing contact, please enter the contact's index number."
+  puts "\n\nIf you would like to make edits to an existing contact, please enter the contact's index number."
   puts "Or, press any other key to return to the main menu."
 
   user_choice = gets.chomp
@@ -61,7 +64,7 @@ def list_contacts
 end
 
 def edit_contact
-  puts "You've selected #{@selected_contact.name}'s email list.\n"
+  puts "\n\nYou've selected #{@selected_contact.name}'s email list.\n"
   puts "Press 'a' to add a new email address, 'e' to edit a specific contact's email addresses,"
   puts "'r' to remove the contact, or any key to return to the main menu."
 
@@ -74,13 +77,13 @@ def edit_contact
   elsif user_choice == 'r'
     remove_contact
   else
-    puts "Returning to the main menu..."
+    puts "\nReturning to the main menu...\n\n"
     main_menu
   end
 end
 
 def new_email
-  puts "Please enter the new email address for your contact, #{@selected_contact.name}."
+  puts "\nPlease enter the new email address for your contact, #{@selected_contact.name}.\n"
 
   user_input = gets.chomp
   new_address = Email.new(user_input)
@@ -92,7 +95,7 @@ def new_email
 end
 
 def edit_email
-  puts "Here are the email addresses you have for #{@selected_contact.name}:"
+  puts "\nHere are the email addresses you have for #{@selected_contact.name}:"
   @selected_contact.list_emails
   puts "\n\n"
 
@@ -109,7 +112,7 @@ def edit_email
 end
 
 def remove_contact
-  puts "Are you sure you want to remove #{@selected_contact.name} from your Email Keeper? y/n"
+  puts "\nAre you sure you want to remove #{@selected_contact.name} from your Email Keeper? y/n"
   user_choice = gets.chomp
 
   if user_choice == 'y'
@@ -117,12 +120,12 @@ def remove_contact
     puts "\n#{@selected_contact.name} has been successfully removed. Returning to the main menu...\n"
     main_menu
   elsif user_choice == 'n'
-    puts "Whew, that was a close one! Returning to the edit contact menu..."
+    puts "\nWhew, that was a close one! Returning to the edit contact menu...\n"
     edit_contact
   else
-    puts "My apologies, I don't recognize your selection. Please try again."
+    puts "\nMy apologies, I don't recognize your selection. Please try again.\n"
     remove_contact
   end
 end
 
-main_menu
+welcome
