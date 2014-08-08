@@ -2,6 +2,7 @@ require './lib/contact'
 require './lib/email'
 
 @selected_contact = nil
+@selected_email = nil
 
 def main_menu
   puts "Welcome to your Email Keeper. Please select from the following:"
@@ -92,15 +93,17 @@ end
 
 def edit_email
   puts "Here are the email addresses you have for #{@selected_contact.name}:"
-  @selected_contact.emails.each_with_index { |email, index| puts "#{index+1}. #{email.address}" }
+  @selected_contact.list_emails
   puts "\n\n"
 
   puts "If you would like to remove an email, please select the email's index number."
-  user_choice = gets.chomp.to_i
+  user_choice = gets.chomp
+  array_position = user_choice.to_i - 1
 
-  #this is not taking user_choice into account yet.
-  @selected_contact.emails.select { |email| @selected_contact.remove_email(email)
-  puts "\n\n #{email.address} has been successfully removed from contact #{@selected_contact.name}'s list.\n\n" }
+  @selected_email = @selected_contact.emails[array_position]
+  @selected_contact.remove_email(@selected_email)
+
+  puts "\n\n #{@selected_email.address} has been successfully removed from contact #{@selected_contact.name}'s list.\n\n"
 
   edit_contact
 end
