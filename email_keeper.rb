@@ -18,7 +18,7 @@ def main_menu
   elsif user_choice == 'e'
     edit_contact
   elsif user_choice == 'x'
-    puts "Have a good one!"
+    puts "Have a good one!\n\n\n"
     exit
   else
     puts "My apologies, I don't recognize your selection. Please try again."
@@ -86,7 +86,7 @@ def new_email
   new_address = Email.new(user_input)
   @selected_contact.add_email(new_address)
 
-  puts "You've successfully added #{new_address.address} to #{@selected_contact.name}'s email list.\n\n"
+  puts "\nYou've successfully added #{new_address.address} to #{@selected_contact.name}'s email list.\n\n"
   puts "Returning to the edit contact menu. \n\n"
   edit_contact
 end
@@ -103,9 +103,26 @@ def edit_email
   @selected_email = @selected_contact.emails[array_position]
   @selected_contact.remove_email(@selected_email)
 
-  puts "\n\n #{@selected_email.address} has been successfully removed from contact #{@selected_contact.name}'s list.\n\n"
+  puts "\n#{@selected_email.address} has been successfully removed from #{@selected_contact.name}'s email list.\n\n"
 
   edit_contact
+end
+
+def remove_contact
+  puts "Are you sure you want to remove #{@selected_contact.name} from your Email Keeper? y/n"
+  user_choice = gets.chomp
+
+  if user_choice == 'y'
+    Contact.all.delete_if { |contact| contact == @selected_contact }
+    puts "\n#{@selected_contact.name} has been successfully removed. Returning to the main menu...\n"
+    main_menu
+  elsif user_choice == 'n'
+    puts "Whew, that was a close one! Returning to the edit contact menu..."
+    edit_contact
+  else
+    puts "My apologies, I don't recognize your selection. Please try again."
+    remove_contact
+  end
 end
 
 main_menu
