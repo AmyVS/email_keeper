@@ -65,21 +65,26 @@ def list_contacts
 end
 
 def edit_contact
-  puts "\n\nYou've selected #{@selected_contact.name}'s email list.\n"
-  puts "Press 'a' to add a new email address, 'e' to edit a specific contact's email addresses,"
-  puts "'r' to remove the contact, or any key to return to the main menu."
-
-  user_choice = gets.chomp
-
-  if user_choice == 'a'
-    new_email
-  elsif user_choice == 'e'
-    edit_email
-  elsif user_choice == 'r'
-    remove_contact
-  else
-    puts "\nReturning to the main menu...\n\n"
+  if Contact.all.length == 0
+    puts "\nLooks like you have yet to create a new contact. I'd recommend selecting 'a' to add a new contact.\n"
     main_menu
+  else
+    puts "\n\nYou've selected #{@selected_contact.name}'s email list.\n"
+    puts "Press 'a' to add a new email address, 'e' to edit a specific contact's email addresses,"
+    puts "'r' to remove the contact, or any key to return to the main menu."
+
+    user_choice = gets.chomp
+
+    if user_choice == 'a'
+      new_email
+    elsif user_choice == 'e'
+      edit_email
+    elsif user_choice == 'r'
+      remove_contact
+    else
+      puts "\nReturning to the main menu...\n\n"
+      main_menu
+    end
   end
 end
 
@@ -101,14 +106,15 @@ def edit_email
   puts "\n\n"
 
   puts "If you would like to remove an email, please select the email's index number."
+  puts "Or press any other key to return to the main menu."
   user_choice = gets.chomp
 
   if user_choice.to_i <= @selected_contact.emails.length && user_choice.to_i != 0
     @selected_email = @selected_contact.emails.fetch(user_choice.to_i-1)
     @selected_contact.remove_email(@selected_email)
   else
-    puts "\nMy apologies, I was unable to understand your choice. Please try again.\n"
-    edit_email
+    puts "\nReturning to the main menu...\n"
+    main_menu
   end
   puts "\n#{@selected_email.address} has been successfully removed from #{@selected_contact.name}'s email list.\n\n"
   edit_contact
