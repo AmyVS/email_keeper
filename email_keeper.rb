@@ -73,7 +73,7 @@ def edit_contact
   if Contact.all.length == 0
     puts "\nLooks like you have yet to create your first contact. I recommend selecting 'a' to add a new contact.\n\n"
     main_menu
-  else
+  elsif Contact.all.include?(@selected_contact)
     puts "\n\nYou've selected #{@selected_contact.name}'s email list.\n"
     puts "Press 'a' to add a new email address, 'e' to edit a specific contact's email addresses,"
     puts "'r' to remove the contact, or any key to return to the main menu."
@@ -90,6 +90,9 @@ def edit_contact
       puts "\nReturning to the main menu...\n\n"
       main_menu
     end
+  else
+    puts "\nPlease select another contact to edit."
+    list_contacts
   end
 end
 
@@ -101,8 +104,17 @@ def new_email
   @selected_contact.add_email(new_address)
 
   puts "\nYou've successfully added #{new_address.address} to #{@selected_contact.name}'s email list.\n\n"
-  puts "Returning to the edit contact menu. \n\n"
-  edit_contact
+  puts "Would you like to add another email address for #{@selected_contact.name}? y/n?\n\n"
+  user_choice = gets.chomp
+  if user_choice == 'y'
+    new_email
+  elsif user_choice == 'n'
+    puts "No worries, returning to the main menu..."
+    main_menu
+  else
+    puts "My apologies for not understanding your choice. Hope my redirection helps you find your way!"
+    edit_contact
+  end
 end
 
 def edit_email
