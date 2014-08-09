@@ -48,25 +48,30 @@ def add_contact
 end
 
 def list_contacts
-  puts "\nHere's a list of all of your contacts:"
-  Contact.all.each_with_index { |contact, index| puts "#{index+1}. #{contact.name}" }
-
-  puts "\n\nIf you would like to make edits to an existing contact, please enter the contact's index number."
-  puts "Or, press any other key to return to the main menu."
-
-  user_choice = gets.chomp
-
-  if user_choice.to_i <= Contact.all.length && user_choice.to_i != 0
-    @selected_contact = Contact.all.fetch(user_choice.to_i-1)
-    edit_contact
-  else
+  if Contact.all.length == 0
+    puts "\nLooks like you have yet to create your first contact. I recommend selecting 'a' to add a new contact.\n\n"
     main_menu
+  else
+    puts "\nHere's a list of all of your contacts:"
+    Contact.all.each_with_index { |contact, index| puts "#{index+1}. #{contact.name}" }
+
+    puts "\n\nIf you would like to make edits to an existing contact, please enter the contact's index number."
+    puts "Or, press any other key to return to the main menu."
+
+    user_choice = gets.chomp
+
+    if user_choice.to_i <= Contact.all.length && user_choice.to_i != 0
+      @selected_contact = Contact.all.fetch(user_choice.to_i-1)
+      edit_contact
+    else
+      main_menu
+    end
   end
 end
 
 def edit_contact
   if Contact.all.length == 0
-    puts "\nLooks like you have yet to create a new contact. I'd recommend selecting 'a' to add a new contact.\n"
+    puts "\nLooks like you have yet to create your first contact. I recommend selecting 'a' to add a new contact.\n\n"
     main_menu
   else
     puts "\n\nYou've selected #{@selected_contact.name}'s email list.\n"
