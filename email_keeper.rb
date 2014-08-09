@@ -1,6 +1,5 @@
 require './lib/contact'
 require './lib/email'
-require 'pry'
 
 @selected_contact = nil
 @selected_email = nil
