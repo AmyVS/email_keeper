@@ -1,5 +1,6 @@
 require './lib/contact'
 require './lib/email'
+require 'pry'
 
 @selected_contact = nil
 @selected_email = nil
@@ -55,7 +56,7 @@ def list_contacts
 
   user_choice = gets.chomp
 
-  if user_choice.to_i <= Contact.all.length
+  if user_choice.to_i <= Contact.all.length && user_choice.to_i != 0
     @selected_contact = Contact.all.fetch(user_choice.to_i-1)
     edit_contact
   else
@@ -101,13 +102,15 @@ def edit_email
 
   puts "If you would like to remove an email, please select the email's index number."
   user_choice = gets.chomp
-  array_position = user_choice.to_i - 1
 
-  @selected_email = @selected_contact.emails[array_position]
-  @selected_contact.remove_email(@selected_email)
-
+  if user_choice.to_i <= @selected_contact.emails.length && user_choice.to_i != 0
+    @selected_email = @selected_contact.emails.fetch(user_choice.to_i-1)
+    @selected_contact.remove_email(@selected_email)
+  else
+    puts "\nMy apologies, I was unable to understand your choice. Please try again.\n"
+    edit_email
+  end
   puts "\n#{@selected_email.address} has been successfully removed from #{@selected_contact.name}'s email list.\n\n"
-
   edit_contact
 end
 
