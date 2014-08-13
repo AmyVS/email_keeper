@@ -60,7 +60,7 @@ def list_contacts
     user_choice = gets.chomp
 
     if user_choice.to_i <= Contact.all.length && user_choice.to_i != 0
-      @selected_contact = Contact.all.fetch(user_choice.to_i-1)
+      @selected_contact = Contact.all[(user_choice.to_i)-1]
       edit_contact
     else
       main_menu
@@ -126,7 +126,7 @@ def edit_email
   user_choice = gets.chomp
 
   if user_choice.to_i <= @selected_contact.emails.length && user_choice.to_i != 0
-    @selected_email = @selected_contact.emails.fetch(user_choice.to_i-1)
+    @selected_email = @selected_contact.emails[(user_choice.to_i)-1]
     @selected_contact.remove_email(@selected_email)
   else
     puts "\nReturning to the main menu...\n"
